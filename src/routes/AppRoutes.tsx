@@ -16,6 +16,12 @@ import TrendDashboardPage from '../pages/dashboard/TrendDashboardPage';
 import PricingPage from '../pages/billing/PricingPage';
 import CheckoutPage from '../pages/billing/CheckoutPage';
 import PaymentReturnPage from '../pages/billing/PaymentReturnPage';
+import AdminLayout from '../components/admin/AdminLayout';
+import AdminDashboardPage from '../pages/admin/AdminDashboardPage';
+import AdminPipelinesPage from '../pages/admin/AdminPipelinesPage';
+import AdminRepositoryPage from '../pages/admin/AdminRepositoryPage';
+import AdminUsersPage from '../pages/admin/AdminUsersPage';
+import AdminRevenuePage from '../pages/admin/AdminRevenuePage';
 
 const AppRoutes = () => {
   return (
@@ -46,6 +52,14 @@ const AppRoutes = () => {
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/payment/return" element={<PaymentReturnPage />} />
+        </Route>
+
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboardPage />} />
+          <Route path="pipelines" element={<AdminPipelinesPage />} />
+          <Route path="repository" element={<AdminRepositoryPage />} />
+          <Route path="users" element={<AdminUsersPage />} />
+          <Route path="revenue" element={<AdminRevenuePage />} />
         </Route>
       </Route>
 
