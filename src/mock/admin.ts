@@ -1,4 +1,4 @@
-export type AdminStatus = 'ACTIVE' | 'REQUESTED' | 'GENERATING' | 'READY' | 'FAILED' | 'SUCCESS' | 'PENDING' | 'SUSPENDED' | 'DRAFT' | 'VERIFIED' | 'REGISTERED' | 'EXPIRED';
+export type AdminStatus = 'ACTIVE' | 'REQUESTED' | 'GENERATING' | 'READY' | 'FAILED' | 'SUCCESS' | 'PENDING' | 'SUSPENDED' | 'DRAFT' | 'VERIFIED' | 'REGISTERED' | 'EXPIRED' | 'DISMISSED' | 'REVIEWING';
 
 export interface ExportRequest {
   id: string;
@@ -19,6 +19,25 @@ export interface RepositoryCategory {
   name: string;
   description: string;
   fields: number;
+  status: AdminStatus;
+}
+
+export interface RepositoryPaper {
+  id: string;
+  title: string;
+  doi: string;
+  journal: string;
+  year: number;
+  citations: number;
+  status: AdminStatus;
+}
+
+export interface RepositoryAnomaly {
+  id: string;
+  label: string;
+  title: string;
+  tone: 'orange' | 'red';
+  action: 'Auto-Fill' | 'Review';
   status: AdminStatus;
 }
 
@@ -48,6 +67,14 @@ export interface RevenueRow {
   status: AdminStatus;
 }
 
+export interface SubscriptionPlan {
+  id: string;
+  name: string;
+  price: string;
+  duration: string;
+  status: AdminStatus;
+}
+
 export const exportRequests: ExportRequest[] = [
   { id: '#EXP-82910', user: 'm.chen@academic.org', type: 'CSV', timestamp: '2023-11-24 14:20', status: 'REQUESTED' },
   { id: '#EXP-82909', user: 'j.doe@university.edu', type: 'PDF', timestamp: '2023-11-24 14:15', status: 'GENERATING' },
@@ -65,6 +92,18 @@ export const repositoryCategories: RepositoryCategory[] = [
   { id: 'CAT-001', name: 'Computer Science', description: 'Computing systems, algorithms, processing', fields: 42, status: 'VERIFIED' },
   { id: 'CAT-002', name: 'Medicine', description: 'Clinical health, diagnostics, patient care', fields: 38, status: 'VERIFIED' },
   { id: 'CAT-003', name: 'Physics', description: 'Fundamental forces, matter, astrophysics', fields: 24, status: 'DRAFT' },
+];
+
+export const repositoryPapers: RepositoryPaper[] = [
+  { id: 'AIS-W27491', title: 'Transformer Models for Scientific Trend Forecasting', doi: '10.1145/ais.2026.27491', journal: 'Journal of AI Systems', year: 2026, citations: 128, status: 'VERIFIED' },
+  { id: 'AIS-W19822', title: 'Federated Learning in Healthcare Data Networks', doi: '10.1109/fed.2025.19822', journal: 'IEEE Access', year: 2025, citations: 342, status: 'VERIFIED' },
+  { id: 'AIS-W77120', title: 'Climate Modeling 2024: A Bibliometric Review', doi: '10.1016/clim.2024.77120', journal: 'Science Direct', year: 2024, citations: 76, status: 'REVIEWING' },
+  { id: 'AIS-W88401', title: 'Advanced Neural Networks for Citation Prediction', doi: '10.1007/ann.2023.88401', journal: 'Springer AI Review', year: 2023, citations: 54, status: 'DRAFT' },
+];
+
+export const repositoryAnomalies: RepositoryAnomaly[] = [
+  { tone: 'orange', label: 'MISSING_ABSTRACT', title: 'Advanced Neural Networks...', id: 'AIS_798273_ERN', action: 'Auto-Fill', status: 'PENDING' },
+  { tone: 'red', label: 'FLAGGED_DUPLICATE', title: 'Climate Modeling 2024', id: 'AI-Q7M-125_TRS86', action: 'Review', status: 'PENDING' },
 ];
 
 export const adminUsers: UserDirectoryRow[] = [
@@ -95,4 +134,10 @@ export const revenueBars = [
   { month: 'Apr', amount: 58 },
   { month: 'May', amount: 64 },
   { month: 'Jun', amount: 76 },
+];
+
+export const subscriptionPlans: SubscriptionPlan[] = [
+  { id: 'PLAN-FREE', name: 'Free', price: '0₫', duration: 'Unlimited', status: 'ACTIVE' },
+  { id: 'PLAN-MONTHLY', name: 'Premium Monthly', price: '99.000₫', duration: '30 days', status: 'ACTIVE' },
+  { id: 'PLAN-YEARLY', name: 'Premium Yearly', price: '799.000₫', duration: '365 days', status: 'ACTIVE' },
 ];

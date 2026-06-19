@@ -4,7 +4,7 @@ import { Role } from '../../types/auth';
 
 const adminNavItems = [
   { to: '/admin', label: 'Dashboard', icon: '▦', end: true },
-  { to: '/admin/pipelines', label: 'Data Pipelines', icon: '⚙', end: false },
+  { to: '/admin/pipelines', label: 'Data Pipelines', icon: '◈', end: false },
   { to: '/admin/repository', label: 'Article Repository', icon: '▤', end: false },
   { to: '/admin/users', label: 'User Governance', icon: '◉', end: false },
   { to: '/admin/revenue', label: 'Revenue Dashboard', icon: '₫', end: false },
@@ -26,12 +26,19 @@ const AdminLayout = () => {
 
   return (
     <div className="min-h-screen bg-[#f4f7fa] text-slate-900">
-      <aside className="fixed inset-y-0 left-0 z-20 flex w-[244px] flex-col bg-[#062b4f] text-white shadow-xl">
-        <div className="px-4 pb-5 pt-4">
-          <Link to="/admin" className="block text-lg font-extrabold tracking-tight">
-            AIS Admin
+      <aside className="fixed left-0 top-0 z-20 flex h-screen w-62 flex-col border-r border-slate-200 bg-white text-slate-700">
+        <div className="px-4 pb-5 pt-5">
+          <Link
+            to="/admin"
+            className="flex items-center gap-2 text-lg font-extrabold tracking-tight text-[#1e1b4b]"
+          >
+            <span className="text-sm">✦</span>
+            <span>AIS Admin</span>
           </Link>
-          <p className="mt-0.5 text-[11px] text-blue-200">Academic Intelligence</p>
+
+          <p className="mt-1 ml-5 text-[11px] text-slate-500">
+            Data Governance
+          </p>
         </div>
 
         <nav className="flex flex-1 flex-col gap-1 px-3">
@@ -44,8 +51,8 @@ const AdminLayout = () => {
                 [
                   'flex items-center gap-3 rounded-md px-3 py-3 text-sm font-semibold transition',
                   isActive
-                    ? 'bg-[#62b0ff] text-[#062b4f] shadow-sm'
-                    : 'text-blue-100 hover:bg-white/10 hover:text-white',
+                    ? 'bg-[#160078] text-white shadow-md'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-[#160078]',
                 ].join(' ')
               }
             >
@@ -56,14 +63,8 @@ const AdminLayout = () => {
         </nav>
 
         <div className="space-y-2 px-3 pb-5 text-xs text-blue-100">
-          <Link to="/" className="flex items-center gap-2 rounded-md px-3 py-2 hover:bg-white/10">
-            <span>↩</span> User Workspace
-          </Link>
           <button className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-white/10">
-            <span>⚙</span> Settings
-          </button>
-          <button className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-white/10">
-            <span>?</span> Help
+            Settings
           </button>
         </div>
       </aside>
@@ -75,14 +76,22 @@ const AdminLayout = () => {
             <input
               aria-label="Admin global search"
               className="w-full bg-transparent text-xs outline-none placeholder:text-slate-400"
-              placeholder={location.pathname.includes('users') ? 'Search directory...' : 'Search pipelines, logs, or endpoints...'}
+              placeholder={
+                location.pathname.includes('users')
+                  ? 'Search users, roles, or emails...'
+                  : location.pathname.includes('repository')
+                    ? 'Search DOI, title, author, or journal...'
+                    : location.pathname.includes('pipelines')
+                      ? 'Search pipelines, logs, or endpoints...'
+                      : 'Search reports, articles, users, or system logs...'
+              }
             />
           </div>
 
           <div className="flex items-center gap-4 text-slate-600">
-            <button aria-label="Notifications" className="text-lg hover:text-[#062b4f]">⌁</button>
-            <button aria-label="Apps" className="text-lg hover:text-[#062b4f]">▦</button>
-            <button aria-label="More" className="text-lg hover:text-[#062b4f]">⋮</button>
+            <button aria-label="Notifications" className="text-lg hover:text-[#062b4f]">
+              🔔
+            </button>
             <div className="flex items-center gap-3 border-l border-slate-200 pl-4">
               <div className="text-right">
                 <p className="text-xs font-bold text-slate-900">{user.fullName}</p>
